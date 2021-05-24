@@ -11,6 +11,7 @@ pipeline {
          stage('make package') {
              steps {
                  sh '''
+
                      mvn package
                  '''
              }
