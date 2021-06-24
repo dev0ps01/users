@@ -15,7 +15,7 @@ pipeline {
            sh '''
              mvn package
            '''
-           }
+
          }
       }
       stage ('prepare artifact') {
