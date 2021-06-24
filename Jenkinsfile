@@ -3,23 +3,28 @@ pipeline {
   agent any
 
     stages {
-      stage (' download dependices') {
+      stage ('compile code ') {
         sh '''
-
+          mvn compile
+        '''
+      }
+      stage ('make package') {
+        sh '''
+          mvn package
         '''
       }
       stage ('prepare artifact') {
         steps {
 
            sh '''
-              zip  ../users.zip *
+             cp target/*.jar users.jar && zip -r  ../users.zip * users.jar
            '''
         }
       }
       stage ('upload artifact') {
         steps {
           sh '''
-           curl -f -v -u admin:vamsi --upload-file frontend.zip http://172.31.9.137:8081/repository/frontend1/frontend.zip
+           curl -f -v -u admin:vamsi --upload-file frontend.zip http://172.31.9.137:8081/repository/users1/users.zip
 
           '''
         }
