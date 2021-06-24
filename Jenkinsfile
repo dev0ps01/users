@@ -1,4 +1,3 @@
-@Library('todoapp') _
 
 pipeline {
     agent any
