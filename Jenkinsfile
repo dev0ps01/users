@@ -1,33 +1,36 @@
+@Library('todoapp') _
+
 pipeline {
-
-  agent any
-
+    agent any
     stages {
-      stage ('compile code ') {
-        sh '''
-          mvn compile
-        '''
-      }
-      stage ('make package') {
-        sh '''
-          mvn package
-        '''
-      }
-      stage ('prepare artifact') {
-        steps {
+         stage('compile code') {
+             steps {
+                  sh '''
+                    mvn compile
+                  '''
+             }
+         }
+         stage('make package') {
+             steps {
+                 sh '''
 
-           sh '''
-             cp target/*.jar users.jar && zip -r  ../users.zip * users.jar
-           '''
-        }
-      }
-      stage ('upload artifact') {
-        steps {
-          sh '''
-           curl -f -v -u admin:vamsi --upload-file users.zip http://172.31.9.137:8081/repository/users1/users.zip
-
-          '''
-        }
-      }
+                     mvn package
+                 '''
+             }
+         }
+         stage ('Prepare Artifacts') {
+           steps {
+               sh '''
+                  zip -r users.zip *
+               '''
+           }
+         }
+       stage('Upload Artifacts') {
+          steps {
+              script {
+                   nexus
+              }
+          }
+       }
     }
- }
+}
