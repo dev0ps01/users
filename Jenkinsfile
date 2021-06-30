@@ -4,7 +4,7 @@ todo (
     COMPONENT     : 'users',
     PROJECT_NAME   : "todoapp",
     SLAVE_LABEL     : "NODEJS",
-    APP_TYPE        : "NODEJS"
+    APP_TYPE        : "JAVA"
   )
 
 
